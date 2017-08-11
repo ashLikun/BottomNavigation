@@ -10,6 +10,8 @@ import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 
+import static android.support.graphics.drawable.VectorDrawableCompat.create;
+
 /**
  * AHBottomNavigationItem
  * The item is display in the AHBottomNavigation layout
@@ -155,7 +157,8 @@ public class AHBottomNavigationItem {
 
     public String getTitle(Context context) {
         if (titleRes != 0) {
-            return context.getString(titleRes);
+            title =  context.getString(titleRes);
+            titleRes = 0;
         }
         return title;
     }
@@ -163,7 +166,8 @@ public class AHBottomNavigationItem {
 
     public int getColor(Context context) {
         if (colorRes != 0) {
-            return ContextCompat.getColor(context, colorRes);
+            color =  ContextCompat.getColor(context, colorRes);
+            colorRes = 0;
         }
         return color;
     }
@@ -172,10 +176,11 @@ public class AHBottomNavigationItem {
     public Drawable getDrawable(Context context) {
         if (drawableRes != 0) {
             try {
-                return VectorDrawableCompat.create(context.getResources(), drawableRes, null);
+                drawable = create(context.getResources(), drawableRes, null);
             } catch (Resources.NotFoundException e) {
-                return ContextCompat.getDrawable(context, drawableRes);
+                drawable = ContextCompat.getDrawable(context, drawableRes);
             }
+            drawableRes = 0;
         }
         return drawable;
     }
@@ -183,10 +188,11 @@ public class AHBottomNavigationItem {
     public Drawable getDrawableSelect(Context context) {
         if (drawableSelectRes != 0) {
             try {
-                return VectorDrawableCompat.create(context.getResources(), drawableSelectRes, null);
+                drawableSelect = VectorDrawableCompat.create(context.getResources(), drawableSelectRes, null);
             } catch (Resources.NotFoundException e) {
-                return ContextCompat.getDrawable(context, drawableSelectRes);
+                drawableSelect = ContextCompat.getDrawable(context, drawableSelectRes);
             }
+            drawableSelectRes = 0;
         }
         return drawableSelect;
     }

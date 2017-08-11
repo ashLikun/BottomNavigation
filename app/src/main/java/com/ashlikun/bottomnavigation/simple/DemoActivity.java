@@ -66,11 +66,17 @@ public class DemoActivity extends AppCompatActivity {
             navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.bottom_navigation_menu_3);
             navigationAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
         } else {
-            AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp, R.drawable.ic_add_black_24dp)
+//            AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp, R.drawable.ic_add_black_24dp)
+//                    .setColorRes(R.color.color_tab_1).builder();
+//            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp, R.drawable.ic_add_black_24dp)
+//                    .setColorRes(R.color.color_tab_2).builder();
+//            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp, R.drawable.ic_add_black_24dp)
+//                    .setColorRes(R.color.color_tab_3).builder();
+            AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp)
                     .setColorRes(R.color.color_tab_1).builder();
-            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp, R.drawable.ic_add_black_24dp)
+            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
                     .setColorRes(R.color.color_tab_2).builder();
-            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp, R.drawable.ic_add_black_24dp)
+            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
                     .setColorRes(R.color.color_tab_3).builder();
 
             bottomNavigationItems.add(item1);
@@ -82,7 +88,7 @@ public class DemoActivity extends AppCompatActivity {
 
         bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
         bottomNavigation.setTranslucentNavigationEnabled(true);
-
+        bottomNavigation.setForceTint(true);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
@@ -243,12 +249,20 @@ public class DemoActivity extends AppCompatActivity {
 
         } else {
             if (addItems) {
+//                AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(getString(R.string.tab_4),
+//                        ContextCompat.getDrawable(this, R.drawable.ic_tab_4), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
+//                        .setColor(ContextCompat.getColor(this, R.color.color_tab_4))
+//                        .builder();
+//                AHBottomNavigationItem item5 = new AHBottomNavigationItem.Builder(getString(R.string.tab_5),
+//                        ContextCompat.getDrawable(this, R.drawable.ic_tab_5), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
+//                        .setColor(ContextCompat.getColor(this, R.color.color_tab_5))
+//                        .builder();
                 AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(getString(R.string.tab_4),
-                        ContextCompat.getDrawable(this, R.drawable.ic_tab_4), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
+                        ContextCompat.getDrawable(this, R.drawable.ic_tab_4))
                         .setColor(ContextCompat.getColor(this, R.color.color_tab_4))
                         .builder();
                 AHBottomNavigationItem item5 = new AHBottomNavigationItem.Builder(getString(R.string.tab_5),
-                        ContextCompat.getDrawable(this, R.drawable.ic_tab_5), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
+                        ContextCompat.getDrawable(this, R.drawable.ic_tab_5))
                         .setColor(ContextCompat.getColor(this, R.color.color_tab_5))
                         .builder();
 

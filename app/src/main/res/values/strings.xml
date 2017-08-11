@@ -11,5 +11,9 @@
     <string name="menu_3">Menu 3</string>
     <string name="menu_4">Menu 4</string>
     <string name="menu_5">Menu 5</string>
-
+    <string name="bottom_1">首页</string>
+    <string name="bottom_2">分类</string>
+    <string name="bottom_3">购物车</string>
+    <string name="bottom_4">订单</string>
+    <string name="bottom_5">我的</string>
 </resources>
