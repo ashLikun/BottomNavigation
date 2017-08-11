@@ -1,31 +1,24 @@
 
 # BottomNavigation
-
+    按照google得规定得底部导航栏
 ## Demo
 <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo1.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo2.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo3.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo4.gif" width="208" height="368" />
-
-## What's new (2.0.6) - [Changelog](https://github.com/aurelhubert/ahbottomnavigation/blob/master/CHANGELOG.md)
-* Fix selected item background for API >= 21
-* Fix `isHidden()` method
-* Update design support library version
 
 ## 说明
 #### 参考了
   compile 'com.aurelhubert:ahbottomnavigation:2.0.6'
 
 
-## How to?
+## 使用
 
 ### Gradle
-```groovy
 dependencies {
     compile com.github.ashLikun:BottomNavigation:2.0.6
 
 }
-```
 ### XML
 ```xml
-<com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+<com.ashLikun.bottomnavigation.AHBottomNavigation
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -39,7 +32,7 @@ OR
 
     ...
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+    <com.ashLikun.ahbottomnavigation.AHBottomNavigation
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
