@@ -201,7 +201,6 @@ public class AHHelper {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 int value = (int) animator.getAnimatedValue();
-                Log.e("aaaa", value + "");
                 if (value >= 0) {
                     fromDrawable.setAlpha(value);
                     imageView.setImageDrawable(fromDrawable);
