@@ -1,6 +1,27 @@
+[![Release](https://jitpack.io/v/ashLikun/BottomNavigation.svg)](https://jitpack.io/#ashLikun/BottomNavigation)
 
 # BottomNavigation
     按照google得规定得底部导航栏
+
+## 使用方法
+
+build.gradle文件中添加:
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+并且:
+
+```gradle
+dependencies {
+    implementation 'com.github.ashLikun:BottomNavigation:{latest version}'//BottomNavigation
+}
+
+
+
 ## Demo
 <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo1.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo2.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo3.gif" width="208" height="368" /> <img src="https://raw.githubusercontent.com/aurelhubert/ahbottomnavigation/master/demo4.gif" width="208" height="368" />
 
