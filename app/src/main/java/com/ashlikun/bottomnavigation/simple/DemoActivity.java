@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.view.animation.OvershootInterpolator;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationAdapter;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
-import com.ashlikun.bottomnavigation.AHBottomNavigationViewPager;
 import com.ashlikun.bottomnavigation.notification.AHNotification;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class DemoActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
     // UI
-    private AHBottomNavigationViewPager viewPager;
+    private ViewPager viewPager;
     private AHBottomNavigation bottomNavigation;
     private FloatingActionButton floatingActionButton;
 
@@ -58,7 +58,7 @@ public class DemoActivity extends AppCompatActivity {
     private void initUI() {
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
-        viewPager = (AHBottomNavigationViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floating_action_button);
 
         if (useMenuResource) {
@@ -89,7 +89,8 @@ public class DemoActivity extends AppCompatActivity {
         bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
         bottomNavigation.setTranslucentNavigationEnabled(true);
         bottomNavigation.setForceTint(true);
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+        bottomNavigation.setupWithViewPager(viewPager);
+        bottomNavigation.addOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
 

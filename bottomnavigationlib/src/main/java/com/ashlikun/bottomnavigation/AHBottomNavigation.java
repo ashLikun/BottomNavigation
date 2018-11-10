@@ -17,8 +17,10 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -54,6 +56,7 @@ public class AHBottomNavigation extends FrameLayout {
     // Constant
     public static final int CURRENT_ITEM_NONE = -1;
     public static final int UPDATE_ALL_NOTIFICATIONS = -1;
+    private ViewPager mViewPager;
 
     // Title state
     public enum TitleState {
@@ -69,7 +72,7 @@ public class AHBottomNavigation extends FrameLayout {
     private static final int MAX_ITEMS = 5;
 
     // Listener
-    private OnTabSelectedListener tabSelectedListener;
+    private List<OnTabSelectedListener> tabSelectedListeners = null;
     private OnNavigationPositionListener navigationPositionListener;
 
     // Variables
@@ -132,6 +135,8 @@ public class AHBottomNavigation extends FrameLayout {
     private Typeface notificationTypeface;
     private int notificationActiveMarginLeft, notificationInactiveMarginLeft;
     private int notificationActiveMarginTop, notificationInactiveMarginTop;
+    private AHOnPageChangeListener mPageChangeListener;
+    private OnTabSelectedListener mCurrentVpSelectedListener;
 
     /**
      * Constructors
@@ -291,7 +296,9 @@ public class AHBottomNavigation extends FrameLayout {
     @SuppressLint("NewApi")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private int calculateHeight(int layoutHeight) {
-        if (!translucentNavigationEnabled) return layoutHeight;
+        if (!translucentNavigationEnabled) {
+            return layoutHeight;
+        }
 
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -611,15 +618,25 @@ public class AHBottomNavigation extends FrameLayout {
     private void updateItems(final int itemIndex, boolean useCallback) {
 
         if (currentItem == itemIndex) {
-            if (tabSelectedListener != null && useCallback) {
-                tabSelectedListener.onTabSelected(itemIndex, true);
+            if (tabSelectedListeners != null && useCallback) {
+                for (OnTabSelectedListener l : tabSelectedListeners) {
+                    l.onTabSelected(itemIndex, true);
+                }
             }
             return;
         }
 
-        if (tabSelectedListener != null && useCallback) {
-            boolean selectionAllowed = tabSelectedListener.onTabSelected(itemIndex, false);
-            if (!selectionAllowed) return;
+        if (tabSelectedListeners != null && useCallback) {
+            boolean selectionAllowed = true;
+            for (OnTabSelectedListener l : tabSelectedListeners) {
+                if (!l.onTabSelected(itemIndex, false)) {
+                    selectionAllowed = false;
+                    break;
+                }
+            }
+            if (!selectionAllowed) {
+                return;
+            }
         }
 
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_margin_top_active);
@@ -751,19 +768,27 @@ public class AHBottomNavigation extends FrameLayout {
      * @param useCallback boolean: Use or not the callback
      */
     private void updateSmallItems(final int itemIndex, boolean useCallback) {
-
         if (currentItem == itemIndex) {
-            if (tabSelectedListener != null && useCallback) {
-                tabSelectedListener.onTabSelected(itemIndex, true);
+            if (tabSelectedListeners != null && useCallback) {
+                for (OnTabSelectedListener l : tabSelectedListeners) {
+                    l.onTabSelected(itemIndex, true);
+                }
             }
             return;
         }
 
-        if (tabSelectedListener != null && useCallback) {
-            boolean selectionAllowed = tabSelectedListener.onTabSelected(itemIndex, false);
-            if (!selectionAllowed) return;
+        if (tabSelectedListeners != null && useCallback) {
+            boolean selectionAllowed = true;
+            for (OnTabSelectedListener l : tabSelectedListeners) {
+                if (!l.onTabSelected(itemIndex, false)) {
+                    selectionAllowed = false;
+                    break;
+                }
+            }
+            if (!selectionAllowed) {
+                return;
+            }
         }
-
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top_active);
         int inactiveMargin = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top);
 
@@ -1388,18 +1413,56 @@ public class AHBottomNavigation extends FrameLayout {
         createItems();
     }
 
-    /**
-     * Set AHOnTabSelectedListener
-     */
-    public void setOnTabSelectedListener(OnTabSelectedListener tabSelectedListener) {
-        this.tabSelectedListener = tabSelectedListener;
+    public void setupWithViewPager(final ViewPager viewPager) {
+        if (mViewPager != null) {
+            // If we've already been setup with a ViewPager, remove us from it
+            if (mPageChangeListener != null) {
+                mViewPager.removeOnPageChangeListener(mPageChangeListener);
+            }
+        }
+        if (mCurrentVpSelectedListener != null) {
+            // If we already have a tab selected listener for the ViewPager, remove it
+            removeOnTabSelectedListener(mCurrentVpSelectedListener);
+            mCurrentVpSelectedListener = null;
+        }
+        if (viewPager != null) {
+            mViewPager = viewPager;
+            // Add our custom OnPageChangeListener to the ViewPager
+            if (mPageChangeListener == null) {
+                mPageChangeListener = new AHOnPageChangeListener(this);
+            }
+            viewPager.addOnPageChangeListener(mPageChangeListener);
+            // Now we'll add a tab selected listener to set ViewPager's current item
+            mCurrentVpSelectedListener = new ViewPagerOnTabSelectedListener(viewPager);
+            addOnTabSelectedListener(mCurrentVpSelectedListener);
+            // Add a listener so that we're notified of any adapter changes
+            // Now update the scroll position to match the ViewPager's current item
+            setCurrentItem(viewPager.getCurrentItem(), false);
+        } else {
+            // We've been given a null ViewPager so we need to clear out the internal state,
+            // listeners and observers
+            mViewPager = null;
+        }
     }
+
 
     /**
      * Remove AHOnTabSelectedListener
      */
-    public void removeOnTabSelectedListener() {
-        this.tabSelectedListener = null;
+    public void removeOnTabSelectedListener(OnTabSelectedListener listener) {
+        if (tabSelectedListeners != null) {
+            tabSelectedListeners.remove(listener);
+        }
+
+    }
+
+    public void addOnTabSelectedListener(OnTabSelectedListener listener) {
+        if (tabSelectedListeners == null) {
+            tabSelectedListeners = new ArrayList<>();
+        }
+        if (!tabSelectedListeners.contains(listener)) {
+            tabSelectedListeners.add(listener);
+        }
     }
 
     /**
@@ -1597,6 +1660,24 @@ public class AHBottomNavigation extends FrameLayout {
         return null;
     }
 
+
+    /**
+     * A {@link TabLayout.OnTabSelectedListener} class which contains the necessary calls back
+     * to the provided {@link ViewPager} so that the tab position is kept in sync.
+     */
+    public static class ViewPagerOnTabSelectedListener implements OnTabSelectedListener {
+        private final ViewPager mViewPager;
+
+        public ViewPagerOnTabSelectedListener(ViewPager viewPager) {
+            mViewPager = viewPager;
+        }
+
+        @Override
+        public boolean onTabSelected(int position, boolean wasSelected) {
+            mViewPager.setCurrentItem(position);
+            return true;
+        }
+    }
     ////////////////
     // INTERFACES //
     ////////////////
