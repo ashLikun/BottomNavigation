@@ -72,7 +72,7 @@ public class AHBottomNavigation extends FrameLayout {
     private static final int MAX_ITEMS = 5;
 
     // Listener
-    private List<OnTabSelectedListener> tabSelectedListeners = null;
+    protected List<OnTabSelectedListener> tabSelectedListeners = null;
     private OnNavigationPositionListener navigationPositionListener;
 
     // Variables
