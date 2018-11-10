@@ -39,7 +39,6 @@ public class AHOnPageChangeListener implements ViewPager.OnPageChangeListener {
                 boolean selectionAllowed = true;
                 for (AHBottomNavigation.OnTabSelectedListener l : navigation.tabSelectedListeners) {
                     if (!(l instanceof AHOnPageChangeListener)) {
-                        //这里用true区别
                         if (!l.onTabSelected(position, false)) {
                             selectionAllowed = false;
                             break;
