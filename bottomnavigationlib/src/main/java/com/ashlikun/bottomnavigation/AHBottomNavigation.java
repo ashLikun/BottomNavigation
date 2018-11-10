@@ -136,7 +136,6 @@ public class AHBottomNavigation extends FrameLayout {
     private int notificationActiveMarginLeft, notificationInactiveMarginLeft;
     private int notificationActiveMarginTop, notificationInactiveMarginTop;
     private AHOnPageChangeListener mPageChangeListener;
-    private OnTabSelectedListener mCurrentVpSelectedListener;
 
     /**
      * Constructors
@@ -625,7 +624,6 @@ public class AHBottomNavigation extends FrameLayout {
             }
             return;
         }
-
         if (tabSelectedListeners != null && useCallback) {
             boolean selectionAllowed = true;
             for (OnTabSelectedListener l : tabSelectedListeners) {
@@ -638,7 +636,9 @@ public class AHBottomNavigation extends FrameLayout {
                 return;
             }
         }
-
+        if (useCallback && mViewPager != null) {
+            mViewPager.setCurrentItem(itemIndex);
+        }
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_margin_top_active);
         int inactiveMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_margin_top_inactive);
         float activeSize = resources.getDimension(R.dimen.bottom_navigation_text_size_active);
@@ -788,6 +788,9 @@ public class AHBottomNavigation extends FrameLayout {
             if (!selectionAllowed) {
                 return;
             }
+        }
+        if (useCallback && mViewPager != null) {
+            mViewPager.setCurrentItem(itemIndex);
         }
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top_active);
         int inactiveMargin = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top);
@@ -1420,11 +1423,6 @@ public class AHBottomNavigation extends FrameLayout {
                 mViewPager.removeOnPageChangeListener(mPageChangeListener);
             }
         }
-        if (mCurrentVpSelectedListener != null) {
-            // If we already have a tab selected listener for the ViewPager, remove it
-            removeOnTabSelectedListener(mCurrentVpSelectedListener);
-            mCurrentVpSelectedListener = null;
-        }
         if (viewPager != null) {
             mViewPager = viewPager;
             // Add our custom OnPageChangeListener to the ViewPager
@@ -1432,9 +1430,6 @@ public class AHBottomNavigation extends FrameLayout {
                 mPageChangeListener = new AHOnPageChangeListener(this);
             }
             viewPager.addOnPageChangeListener(mPageChangeListener);
-            // Now we'll add a tab selected listener to set ViewPager's current item
-            mCurrentVpSelectedListener = new ViewPagerOnTabSelectedListener(viewPager);
-            addOnTabSelectedListener(mCurrentVpSelectedListener);
             // Add a listener so that we're notified of any adapter changes
             // Now update the scroll position to match the ViewPager's current item
             setCurrentItem(viewPager.getCurrentItem(), false);
@@ -1660,24 +1655,6 @@ public class AHBottomNavigation extends FrameLayout {
         return null;
     }
 
-
-    /**
-     * A {@link TabLayout.OnTabSelectedListener} class which contains the necessary calls back
-     * to the provided {@link ViewPager} so that the tab position is kept in sync.
-     */
-    public static class ViewPagerOnTabSelectedListener implements OnTabSelectedListener {
-        private final ViewPager mViewPager;
-
-        public ViewPagerOnTabSelectedListener(ViewPager viewPager) {
-            mViewPager = viewPager;
-        }
-
-        @Override
-        public boolean onTabSelected(int position, boolean wasSelected) {
-            mViewPager.setCurrentItem(position);
-            return true;
-        }
-    }
     ////////////////
     // INTERFACES //
     ////////////////
