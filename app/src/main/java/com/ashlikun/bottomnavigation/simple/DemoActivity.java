@@ -7,12 +7,16 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+<<<<<<< HEAD
+=======
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
+>>>>>>> 96a4829eb605c9da0182dc9959033eddc438e58e
 import android.support.v7.app.AppCompatActivity;
 
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationAdapter;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
-import com.ashlikun.bottomnavigation.AHBottomNavigationViewPager;
 import com.ashlikun.bottomnavigation.notification.AHNotification;
 
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ public class DemoActivity extends AppCompatActivity {
     private Handler handler = new Handler();
 
     // UI
-    private AHBottomNavigationViewPager viewPager;
+    private ViewPager viewPager;
     private AHBottomNavigation bottomNavigation;
     private FloatingActionButton floatingActionButton;
 
@@ -54,7 +58,7 @@ public class DemoActivity extends AppCompatActivity {
     private void initUI() {
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
-        viewPager = (AHBottomNavigationViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floating_action_button);
 
 //        if (useMenuResource) {
@@ -66,6 +70,7 @@ public class DemoActivity extends AppCompatActivity {
 //                    .setColorRes(R.color.color_tab_1).builder();
 //            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
 //                    .setColorRes(R.color.color_tab_2).builder();
+<<<<<<< HEAD
 //            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
 //                    .setColorRes(R.color.color_tab_4).builder();
 //            AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_tab_4)
@@ -92,6 +97,65 @@ public class DemoActivity extends AppCompatActivity {
         bottomNavigation.setDefaultBackgroundColor(0xffffffff);
         bottomNavigation.setCurrentItem(0, false);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+=======
+//            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp, R.drawable.ic_add_black_24dp)
+//                    .setColorRes(R.color.color_tab_3).builder();
+            AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp)
+                    .setColorRes(R.color.color_tab_1).builder();
+            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
+                    .setColorRes(R.color.color_tab_2).builder();
+            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
+                    .setColorRes(R.color.color_tab_3).builder();
+
+            bottomNavigationItems.add(item1);
+            bottomNavigationItems.add(item2);
+            bottomNavigationItems.add(item3);
+
+            bottomNavigation.addItems(bottomNavigationItems);
+        }
+
+        bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
+        bottomNavigation.setTranslucentNavigationEnabled(true);
+        bottomNavigation.setForceTint(true);
+        bottomNavigation.setupWithViewPager(viewPager);
+        bottomNavigation.addOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+
+                if (currentFragment == null) {
+                    currentFragment = adapter.getCurrentFragment();
+                }
+
+                if (wasSelected) {
+                    currentFragment.refresh();
+                    return true;
+                }
+
+                if (currentFragment != null) {
+                    currentFragment.willBeHidden();
+                }
+
+                viewPager.setCurrentItem(position, false);
+                currentFragment = adapter.getCurrentFragment();
+                currentFragment.willBeDisplayed();
+
+                if (position == 1) {
+                    bottomNavigation.setNotification("", 1);
+
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                    floatingActionButton.setAlpha(0f);
+                    floatingActionButton.setScaleX(0f);
+                    floatingActionButton.setScaleY(0f);
+                    floatingActionButton.animate()
+                            .alpha(1)
+                            .scaleX(1)
+                            .scaleY(1)
+                            .setDuration(300)
+                            .setInterpolator(new OvershootInterpolator())
+                            .setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+>>>>>>> 96a4829eb605c9da0182dc9959033eddc438e58e
 
 
 		/*
