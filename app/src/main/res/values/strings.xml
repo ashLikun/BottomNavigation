@@ -5,7 +5,10 @@
     <string name="tab_3">Label 3</string>
     <string name="tab_4">Label 4</string>
     <string name="tab_5">Label 5</string>
-
+    <string name="main_bottom_1">首页</string>
+    <string name="main_bottom_2">发现</string>
+    <string name="main_bottom_3">社交圈</string>
+    <string name="main_bottom_4">我的</string>
     <string name="menu_1">Menu 1</string>
     <string name="menu_2">Menu 2</string>
     <string name="menu_3">Menu 3</string>
