@@ -1,25 +1,25 @@
 package com.ashlikun.bottomnavigation.simple;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-<<<<<<< HEAD
-=======
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
->>>>>>> 96a4829eb605c9da0182dc9959033eddc438e58e
-import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
 
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationAdapter;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
 import com.ashlikun.bottomnavigation.notification.AHNotification;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 public class DemoActivity extends AppCompatActivity {
 
@@ -70,7 +70,6 @@ public class DemoActivity extends AppCompatActivity {
 //                    .setColorRes(R.color.color_tab_1).builder();
 //            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
 //                    .setColorRes(R.color.color_tab_2).builder();
-<<<<<<< HEAD
 //            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
 //                    .setColorRes(R.color.color_tab_4).builder();
 //            AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_tab_4)
@@ -83,7 +82,7 @@ public class DemoActivity extends AppCompatActivity {
 //            bottomNavigation.addItems(bottomNavigationItems);
 //        }
         bottomNavigation.setAccentColor(0xffffff00);
-        bottomNavigation.setInactiveColor(0xffffff00);
+        bottomNavigation.setInactiveColor(0xffff0000);
         bottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_1,
                 R.mipmap.icon_home_no, R.mipmap.icon_home_select).builder());
         bottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_2,
@@ -97,31 +96,24 @@ public class DemoActivity extends AppCompatActivity {
         bottomNavigation.setDefaultBackgroundColor(0xffffffff);
         bottomNavigation.setCurrentItem(0, false);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-=======
-//            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp, R.drawable.ic_add_black_24dp)
-//                    .setColorRes(R.color.color_tab_3).builder();
-            AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp)
-                    .setColorRes(R.color.color_tab_1).builder();
-            AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
-                    .setColorRes(R.color.color_tab_2).builder();
-            AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
-                    .setColorRes(R.color.color_tab_3).builder();
 
-            bottomNavigationItems.add(item1);
-            bottomNavigationItems.add(item2);
-            bottomNavigationItems.add(item3);
 
-            bottomNavigation.addItems(bottomNavigationItems);
-        }
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem.Builder(R.string.tab_1, R.drawable.ic_apps_black_24dp)
+                .setColorRes(R.color.color_tab_1).builder();
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem.Builder(R.string.tab_2, R.drawable.ic_brightness_5_black_24dp)
+                .setColorRes(R.color.color_tab_2).builder();
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem.Builder(R.string.tab_3, R.drawable.ic_aspect_ratio_black_24dp)
+                .setColorRes(R.color.color_tab_3).builder();
+
 
         bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
         bottomNavigation.setTranslucentNavigationEnabled(true);
         bottomNavigation.setForceTint(true);
         bottomNavigation.setupWithViewPager(viewPager);
         bottomNavigation.addOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
-
                 if (currentFragment == null) {
                     currentFragment = adapter.getCurrentFragment();
                 }
@@ -152,19 +144,12 @@ public class DemoActivity extends AppCompatActivity {
                             .scaleY(1)
                             .setDuration(300)
                             .setInterpolator(new OvershootInterpolator())
-                            .setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
->>>>>>> 96a4829eb605c9da0182dc9959033eddc438e58e
+                            .setListener(null);
+                }
+                return true;
+            }
+        });
 
-
-		/*
-        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-			@Override public void onPositionChange(int y) {
-				Log.d("DemoActivity", "BottomNavigation Position: " + y);
-			}
-		});
-		*/
 
         adapter = new DemoViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
@@ -221,14 +206,6 @@ public class DemoActivity extends AppCompatActivity {
 
         } else {
             if (addItems) {
-//                AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(getString(R.string.tab_4),
-//                        ContextCompat.getDrawable(this, R.drawable.ic_tab_4), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
-//                        .setColor(ContextCompat.getColor(this, R.color.color_tab_4))
-//                        .builder();
-//                AHBottomNavigationItem item5 = new AHBottomNavigationItem.Builder(getString(R.string.tab_5),
-//                        ContextCompat.getDrawable(this, R.drawable.ic_tab_5), ContextCompat.getDrawable(this, R.drawable.ic_add_black_24dp))
-//                        .setColor(ContextCompat.getColor(this, R.color.color_tab_5))
-//                        .builder();
                 AHBottomNavigationItem item4 = new AHBottomNavigationItem.Builder(getString(R.string.tab_4),
                         ContextCompat.getDrawable(this, R.drawable.ic_tab_4))
                         .setColor(ContextCompat.getColor(this, R.color.color_tab_4))
