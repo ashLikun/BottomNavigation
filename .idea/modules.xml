@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BottomNavigation.iml" filepath="$PROJECT_DIR$/BottomNavigation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" filepath="$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BottomNavigation.iml" filepath="$PROJECT_DIR$/BottomNavigation.iml" group="BottomNavigation" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BottomNavigation/app" />
+      <module fileurl="file://$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" filepath="$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" group="BottomNavigation/bottomnavigationlib" />
     </modules>
   </component>
 </project>

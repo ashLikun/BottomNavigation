@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
@@ -56,6 +57,9 @@ public class AHBottomNavigationItem {
         private
         @ColorRes
         int colorRes = 0;
+
+        public Builder() {
+        }
 
         public Builder(String title, @DrawableRes int drawableRes) {
             this.title = title;
@@ -157,7 +161,7 @@ public class AHBottomNavigationItem {
 
     public String getTitle(Context context) {
         if (titleRes != 0) {
-            title =  context.getString(titleRes);
+            title = context.getString(titleRes);
             titleRes = 0;
         }
         return title;
@@ -166,7 +170,7 @@ public class AHBottomNavigationItem {
 
     public int getColor(Context context) {
         if (colorRes != 0) {
-            color =  ContextCompat.getColor(context, colorRes);
+            color = ContextCompat.getColor(context, colorRes);
             colorRes = 0;
         }
         return color;

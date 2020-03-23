@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 android {
-     compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
@@ -16,6 +16,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+/**
+ * aar文件的编译
+ */
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
 }
 
 dependencies {
@@ -23,3 +34,6 @@ dependencies {
     compileOnly rootProject.ext.designVersion
 }
 apply from: '../maven.gradle'
+repositories {
+    mavenCentral()
+}
