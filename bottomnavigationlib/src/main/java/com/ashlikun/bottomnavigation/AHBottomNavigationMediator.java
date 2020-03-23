@@ -40,7 +40,6 @@ public final class AHBottomNavigationMediator {
     private final AHBottomNavigation bottomNavigation;
     @NonNull
     private final ViewPager2 viewPager;
-    private final boolean autoRefresh;
     @Nullable
     private RecyclerView.Adapter<?> adapter;
     private boolean attached;
@@ -51,7 +50,6 @@ public final class AHBottomNavigationMediator {
     private AHBottomNavigation.OnTabSelectedListener onTabSelectedListener;
     @Nullable
     private RecyclerView.AdapterDataObserver pagerAdapterObserver;
-    private NavConfigurationStrategy configurationStrategy;
 
     /**
      * A callback interface that must be implemented to set the text and styling of newly created
@@ -71,20 +69,9 @@ public final class AHBottomNavigationMediator {
 
     public AHBottomNavigationMediator(
             @NonNull AHBottomNavigation bottomNavigation,
-            @NonNull ViewPager2 viewPager,
-            @NonNull NavConfigurationStrategy configurationStrategy) {
-        this(bottomNavigation, viewPager, true, configurationStrategy);
-    }
-
-    public AHBottomNavigationMediator(
-            @NonNull AHBottomNavigation bottomNavigation,
-            @NonNull ViewPager2 viewPager,
-            boolean autoRefresh,
-            @NonNull NavConfigurationStrategy configurationStrategy) {
+            @NonNull ViewPager2 viewPager) {
         this.bottomNavigation = bottomNavigation;
         this.viewPager = viewPager;
-        this.autoRefresh = autoRefresh;
-        this.configurationStrategy = configurationStrategy;
     }
 
     /**
