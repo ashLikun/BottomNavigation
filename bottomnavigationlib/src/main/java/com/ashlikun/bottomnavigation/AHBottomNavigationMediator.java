@@ -32,10 +32,10 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
  * 创建时间: 2020/3/23 14:39
  * 邮箱　　：496546144@qq.com
  * <p>
- * 功能介绍：
+ * 功能介绍：实现与ViewPager2 的联动
  */
 
-public final class TabLayoutMediator {
+public final class AHBottomNavigationMediator {
     @NonNull
     private final AHBottomNavigation bottomNavigation;
     @NonNull
@@ -69,14 +69,14 @@ public final class TabLayoutMediator {
         void onConfigureTab(@NonNull AHBottomNavigationItem.Builder navigationItem, int position);
     }
 
-    public TabLayoutMediator(
+    public AHBottomNavigationMediator(
             @NonNull AHBottomNavigation bottomNavigation,
             @NonNull ViewPager2 viewPager,
             @NonNull NavConfigurationStrategy configurationStrategy) {
         this(bottomNavigation, viewPager, true, configurationStrategy);
     }
 
-    public TabLayoutMediator(
+    public AHBottomNavigationMediator(
             @NonNull AHBottomNavigation bottomNavigation,
             @NonNull ViewPager2 viewPager,
             boolean autoRefresh,
