@@ -101,16 +101,6 @@ public final class AHBottomNavigationMediator {
         onTabSelectedListener = new ViewPagerOnTabSelectedListener(viewPager);
         bottomNavigation.addOnTabSelectedListener(onTabSelectedListener);
 
-        // Now we'll populate ourselves from the pager adapter, adding an observer if
-        // autoRefresh is enabled
-        if (autoRefresh) {
-            // Register our observer on the new adapter
-            pagerAdapterObserver = new PagerAdapterObserver();
-            adapter.registerAdapterDataObserver(pagerAdapterObserver);
-        }
-
-        populateTabsFromPagerAdapter();
-
         // Now update the scroll position to match the ViewPager's current item
         bottomNavigation.setCurrentItem(viewPager.getCurrentItem(), false);
     }
@@ -121,10 +111,6 @@ public final class AHBottomNavigationMediator {
      * called before {@link #attach()} when a ViewPager2's adapter is changed.
      */
     public void detach() {
-        if (autoRefresh && adapter != null) {
-            adapter.unregisterAdapterDataObserver(pagerAdapterObserver);
-            pagerAdapterObserver = null;
-        }
         bottomNavigation.removeOnTabSelectedListener(onTabSelectedListener);
         viewPager.unregisterOnPageChangeCallback(onPageChangeCallback);
         onTabSelectedListener = null;
@@ -133,27 +119,6 @@ public final class AHBottomNavigationMediator {
         attached = false;
     }
 
-    @SuppressWarnings("WeakerAccess")
-    void populateTabsFromPagerAdapter() {
-        bottomNavigation.removeAllItems();
-
-        if (adapter != null) {
-            int adapterCount = adapter.getItemCount();
-            for (int i = 0; i < adapterCount; i++) {
-                AHBottomNavigationItem.Builder item = new AHBottomNavigationItem.Builder();
-                configurationStrategy.onConfigureTab(item, i);
-                bottomNavigation.addItem(item.builder());
-            }
-            // Make sure we reflect the currently set ViewPager item
-            if (adapterCount > 0) {
-                int lastItem = bottomNavigation.getItemsCount() - 1;
-                int currItem = Math.min(viewPager.getCurrentItem(), lastItem);
-                if (currItem != bottomNavigation.getCurrentItem()) {
-                    bottomNavigation.setCurrentItem(currItem);
-                }
-            }
-        }
-    }
 
     /**
      * A {@link ViewPager2.OnPageChangeCallback} class which contains the necessary calls back to the
@@ -227,41 +192,6 @@ public final class AHBottomNavigationMediator {
         public boolean onTabSelected(int position, boolean wasSelected) {
             viewPager.setCurrentItem(position, true);
             return true;
-        }
-    }
-
-    private class PagerAdapterObserver extends RecyclerView.AdapterDataObserver {
-        PagerAdapterObserver() {
-        }
-
-        @Override
-        public void onChanged() {
-            populateTabsFromPagerAdapter();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            populateTabsFromPagerAdapter();
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
-            populateTabsFromPagerAdapter();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            populateTabsFromPagerAdapter();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            populateTabsFromPagerAdapter();
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            populateTabsFromPagerAdapter();
         }
     }
 }
