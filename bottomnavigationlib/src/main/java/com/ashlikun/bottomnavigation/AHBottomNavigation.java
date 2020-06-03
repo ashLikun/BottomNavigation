@@ -12,16 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import androidx.annotation.ColorInt;
-import androidx.annotation.ColorRes;
-import androidx.annotation.DrawableRes;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,8 +30,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+import androidx.viewpager.widget.ViewPager;
+
 import com.ashlikun.bottomnavigation.notification.AHNotification;
 import com.ashlikun.bottomnavigation.notification.AHNotificationHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +57,7 @@ public class AHBottomNavigation extends FrameLayout {
     public static final int CURRENT_ITEM_NONE = -1;
     public static final int UPDATE_ALL_NOTIFICATIONS = -1;
     private ViewPager mViewPager;
+    private boolean mViewPagerSmoothScroll = true;
 
     // Title state
     public enum TitleState {
@@ -637,7 +638,7 @@ public class AHBottomNavigation extends FrameLayout {
             }
         }
         if (useCallback && mViewPager != null) {
-            mViewPager.setCurrentItem(itemIndex);
+            mViewPager.setCurrentItem(itemIndex, mViewPagerSmoothScroll);
         }
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_margin_top_active);
         int inactiveMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_margin_top_inactive);
@@ -790,7 +791,7 @@ public class AHBottomNavigation extends FrameLayout {
             }
         }
         if (useCallback && mViewPager != null) {
-            mViewPager.setCurrentItem(itemIndex);
+            mViewPager.setCurrentItem(itemIndex, mViewPagerSmoothScroll);
         }
         int activeMarginTop = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top_active);
         int inactiveMargin = (int) resources.getDimension(R.dimen.bottom_navigation_small_margin_top);
@@ -1416,7 +1417,7 @@ public class AHBottomNavigation extends FrameLayout {
         createItems();
     }
 
-    public void setupWithViewPager(final ViewPager viewPager) {
+    public void setupWithViewPager(final ViewPager viewPager, boolean viewPagerSmoothScroll) {
         if (mViewPager != null) {
             // If we've already been setup with a ViewPager, remove us from it
             if (mPageChangeListener != null) {
@@ -1425,6 +1426,7 @@ public class AHBottomNavigation extends FrameLayout {
         }
         if (viewPager != null) {
             mViewPager = viewPager;
+            mViewPagerSmoothScroll = viewPagerSmoothScroll;
             // Add our custom OnPageChangeListener to the ViewPager
             if (mPageChangeListener == null) {
                 mPageChangeListener = new AHOnPageChangeListener(this);
@@ -1440,6 +1442,9 @@ public class AHBottomNavigation extends FrameLayout {
         }
     }
 
+    public void setViewPagerSmoothScroll(boolean mViewPagerSmoothScroll) {
+        this.mViewPagerSmoothScroll = mViewPagerSmoothScroll;
+    }
 
     /**
      * Remove AHOnTabSelectedListener
