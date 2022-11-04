@@ -1,11 +1,32 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/statusColorCustom</item>
+        <item name="android:navigationBarColor">@color/translucent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/activity_backgound</item>
+        <item name="android:listSelector">@color/translucent</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColorHighlight">@color/black_33</item>
+        <!--Bar默认高度-->
+        <item name="android:actionBarSize">45dp</item>
+        <!--<item name="android:requiresFadingEdge">vertical</item>-->
+        <item name="colorError">@color/design_textinput_error_color_light</item>
+
+
+    </style>
+
+    <style name="AppTheme.TranslucentNavigation" parent="AppTheme">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="setting">
@@ -18,5 +39,4 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
     </style>
-
 </resources>

@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BottomNavigation.iml" filepath="$PROJECT_DIR$/BottomNavigation.iml" group="BottomNavigation" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BottomNavigation/app" />
-      <module fileurl="file://$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" filepath="$PROJECT_DIR$/bottomnavigationlib/bottomnavigationlib.iml" group="BottomNavigation/bottomnavigationlib" />
+      <module fileurl="file://$PROJECT_DIR$/BottomNavigation.iml" filepath="$PROJECT_DIR$/BottomNavigation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BottomNavigation.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.iml" filepath="$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/bottomnavigationlib/BottomNavigation.bottomnavigationlib.unitTest.iml" />
     </modules>
   </component>
 </project>

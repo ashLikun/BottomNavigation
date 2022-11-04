@@ -408,7 +408,9 @@ public class AHBottomNavigation extends FrameLayout {
             TextView notification = (TextView) view.findViewById(R.id.bottom_navigation_notification);
 
             title.setText(item.getTitle(context));
-
+            if (item.itemBackground != null) {
+                view.setBackground(item.itemBackground);
+            }
             if (titleTypeface != null) {
                 title.setTypeface(titleTypeface);
             }

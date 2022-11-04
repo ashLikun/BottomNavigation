@@ -19,10 +19,11 @@ import static androidx.vectordrawable.graphics.drawable.VectorDrawableCompat.cre
  */
 public class AHBottomNavigationItem {
 
-    private String title = "";
-    private Drawable drawable;
-    private Drawable drawableSelect;
-    private int color = Color.GRAY;
+    String title = "";
+    Drawable itemBackground;
+    Drawable drawable;
+    Drawable drawableSelect;
+    int color = Color.GRAY;
 
     private
     @StringRes
@@ -43,6 +44,7 @@ public class AHBottomNavigationItem {
     public static class Builder {
         private String title = "";
         private Drawable drawable;
+        private Drawable itemBackground;
         private Drawable drawableSelect;
         private int color = Color.GRAY;
 
@@ -115,6 +117,11 @@ public class AHBottomNavigationItem {
             return this;
         }
 
+        public Builder setItemBackground(Drawable drawable) {
+            this.itemBackground = drawable;
+            return this;
+        }
+
         public Builder setDrawableSelect(Drawable drawableSelect) {
             this.drawableSelect = drawableSelect;
             return this;
@@ -149,6 +156,7 @@ public class AHBottomNavigationItem {
             AHBottomNavigationItem item = new AHBottomNavigationItem();
             item.title = title;
             item.drawable = drawable;
+            item.itemBackground = itemBackground;
             item.drawableSelect = drawableSelect;
             item.color = color;
             item.titleRes = titleRes;
